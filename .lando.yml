@@ -1,0 +1,19 @@
+name: docker-dev-env
+services:
+  ping:
+    type: compose
+    scanner: false
+    build_as_root:
+      - dnf update -y
+      - dnf install -y python3.11
+    services:
+      image: amazonlinux:2023
+      command: ["/bin/bash", "-c", "while true; do sleep 1; done;"]
+
+tooling:
+  python: 
+    service: ping
+    cmd: python3
+    dir: /app
+    user: root
+    desription: run python scripts.
